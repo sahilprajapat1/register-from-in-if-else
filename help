@@ -1,0 +1,111 @@
+<?php
+
+if (isset($_REQUEST['update'])) {
+    $id = $_REQUEST['hiddenid'];
+    $name = $_REQUEST['name1'];
+    $fathername = $_REQUEST['fathername1'];
+    $mothername = $_REQUEST['mothername1'];
+    $gender = $_REQUEST['gender1'];
+    $hobbies = $_REQUEST['hobbies'];
+    $number = $_REQUEST['number1'];
+    $address = $_REQUEST['address1'];
+    $email = $_REQUEST['email1'];
+    $password = $_REQUEST['password1'];
+    $city = $_REQUEST['city1'];
+    $state = $_REQUEST['state1'];
+    $country = $_REQUEST['country1'];
+
+    $image_file = $_FILES["image"]["name"];
+
+    if (empty($image_file)) {
+
+        $query = "UPDATE form set   `name` = '$name',  fathername= '$fathername',   mothername= '$mothername',    gender= '$gender',
+        hobbies= '$hobbies', `number` = '$number',   `address` = '$address',   city ='$city',   `state` = '$state',  country= '$country',
+        email = '$email' where id = '$id';";
+
+        mysqli_query($connection, $query);
+        header("location:form.php");
+    } else {
+
+        $img_tmp = $_FILES["image"]["tmp_name"];
+        $path = "images/" . $image_file;
+        move_uploaded_file($img_tmp, $path);
+
+        $query = "SELECT * FROM form where id='$id';";
+        $result = mysqli_query($connection, $query);
+        $image = mysqli_fetch_array($result);
+        unlink($image['image']);
+        $query = "UPDATE form set   `name` = '$name',  fathername= '$fathername',   mothername= '$mothername',    gender= '$gender',
+        hobbies= '$hobbies',    `number` = '$number',   `address` = '$address',   city ='$city',   state = '$state',  country= '$country',
+        email = '$email',  `image` = '$path' where id = '$id';";
+        mysqli_query($connection, $query);
+        header("location:form.php");
+    }
+}
+?>
+
+
+<?php if (isset($_REQUEST['uid'])) { ?>
+    <label>Profile</label>
+    <input type='file' name='image' id="myfile">
+    <img src="<?php echo $fetch_uddate['Image']; ?>" width="10  0px" height=50px;>
+<?php } else { ?>
+
+<?php } ?>
+
+
+
+
+foreach($reviews AS $review) {
+$currentAvatar = $review->avatar;
+
+$reviewerAvatar = (public_path('storage/reviews/') . $currentAvatar);
+
+if (file_exists($reviewerAvatar)) {
+unlink($reviewerAvatar);
+}
+
+}
+
+
+
+if (isset($_REQUEST['search'])) {
+$searchbox = $_REQUEST['search'];
+$query = "SELECT * from reg where `name` like '%$searchbox%'; ";
+$results = mysqli_query($conn, $query);
+}
+
+rajat sir
+
+<div class="mb-3">
+    <label>Hobbies</label>
+    <?php
+    $ar = explode("/", @$edit_fetch['hobbies']);
+    //print_r($ar);
+    if (@$ar[0] == 'coding') {
+    ?>
+
+        <label> Coding<input type="checkbox" checked name="h[]" value="coding"></label>
+
+    <?php
+    } else {
+    ?>
+        <label>Coding <input type="checkbox" name="h[]" value="coding"></label>
+    <?php
+    }
+
+    if (@$ar[0] == 'cricket' or @$ar[1] == 'cricket') {
+    ?>
+        <label>Cricket <input type="checkbox" checked name="h[]" value="cricket"></label>
+    <?php
+    } else {
+
+    ?>
+        <label> Cricket <input type="checkbox" name="h[]" value="cricket"></label>
+    <?php
+
+    }
+    ?>
+
+</div>
+રજીસડર બોટી
