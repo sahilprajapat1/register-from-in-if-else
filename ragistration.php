@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "mydb");
+// $conn = mysqli_connect("localhost", "root", "", "mydb");
 // session_start();
 // if (!empty($_SESSION['email'])) {
 //     header("location:index.php");
@@ -256,8 +256,6 @@ if (isset($_REQUEST['update'])) {
                         </thead>
                         <tbody>
                             <?php
-
-
                             $insert = "SELECT * from reg;";
                             $result = mysqli_query($conn, $insert);
                             while ($row = mysqli_fetch_array($result)) { ?>
@@ -301,18 +299,14 @@ if (isset($_REQUEST['update'])) {
                     <br>
                 </div>
         </div>
-
         <div class="card-body" style="<?php echo (!empty($_REQUEST['search'])) ? '' : 'display:none' ?>">
             <?php
             $search = $_REQUEST['search'];
             $query1 = "SELECT * FROM reg where `name` LIKE '%$search%';";
             $res = mysqli_query($conn, $query1);
-
             ?>
             <div class="table-responsive">
                 <table class="table table-bordered  table-hover mb-0">
-
-
                     <tr>
                         <th>Select</th>
                         <th>ID</th>
@@ -326,9 +320,7 @@ if (isset($_REQUEST['update'])) {
                     </tr>
                     </thead>
                     <tbody>
-
                         <?php while ($row = mysqli_fetch_array($res)) { ?>
-
                             <tr>
                                 <td><input type="checkbox" value="<?php echo $row['id'] ?>" name="chk[]"></td>
                                 <td><?php echo $row['id'];  ?> </td>
@@ -338,7 +330,6 @@ if (isset($_REQUEST['update'])) {
                                 <td><?php echo $row['phone'] ?></td>
                                 <td><?php echo $row['gender'] ?></td>
                                 <td><?php echo $row['city'] ?></td>
-
                                 <td>
                                     <div class="col-12">
                                         <div class="card-body">
@@ -357,12 +348,10 @@ if (isset($_REQUEST['update'])) {
                         <?php
                         }
                         ?>
-
                     </tbody>
                     <td>
                         <input type="submit" value="Delete" name="btndel_id" class="btn btn-danger waves-effect waves-light">
                     </td>
-
                     <td>
                         <a href="ragistration.php" class="btn btn-outline-primary">Back</a>
                     </td>
@@ -370,7 +359,6 @@ if (isset($_REQUEST['update'])) {
                 <br>
             </div>
         </div>
-
         </form>
     </div>
     </div>
